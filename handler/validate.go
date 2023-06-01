@@ -3,6 +3,7 @@ package handler
 import (
 	"errors"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/nguyenvantuan2391996/be-project/handler/constant"
 	"github.com/nguyenvantuan2391996/be-project/handler/model"
 )

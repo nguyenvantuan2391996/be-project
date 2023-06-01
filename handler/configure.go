@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/go-playground/validator/v10"
 	"github.com/nguyenvantuan2391996/be-project/internal/domain/usecase"
 )
 

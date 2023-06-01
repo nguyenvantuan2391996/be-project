@@ -11,6 +11,7 @@ import (
 
 	"github.com/nguyenvantuan2391996/be-project/internal/domain/model"
 	"github.com/nguyenvantuan2391996/be-project/internal/domain/repository"
+	"github.com/wcharczuk/go-chart/v2"
 	"gorm.io/gorm"
 )
 
