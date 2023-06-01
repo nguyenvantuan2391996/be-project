@@ -1,0 +1,333 @@
+definitions:
+  model.BulkCreateResponse:
+    properties:
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  model.ConsultResponse:
+    properties:
+      name:
+        type: string
+      similarity:
+        type: number
+    type: object
+  model.DeletedResponse:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
+  model.ErrorSystem:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.ScoreRatingRequest:
+    properties:
+      id:
+        type: string
+      metadata:
+        type: string
+      user_id:
+        type: string
+    required:
+    - metadata
+    - user_id
+    type: object
+  model.ScoreRatingResponse:
+    properties:
+      id:
+        type: string
+      metadata:
+        type: string
+    type: object
+  model.StandardRequest:
+    properties:
+      standard_name:
+        type: string
+      type:
+        type: string
+      user_id:
+        type: string
+      weight:
+        type: integer
+    required:
+    - standard_name
+    - type
+    - user_id
+    - weight
+    type: object
+  model.StandardResponse:
+    properties:
+      id:
+        type: string
+      standard_name:
+        type: string
+      type:
+        type: string
+      user_id:
+        type: string
+      weight:
+        type: integer
+    type: object
+  model.UpdateResponse:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
+  model.UserRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  model.UserResponse:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/api/consult/:user_id:
+    post:
+      consumes:
+      - application/json
+      description: consults to choose best option
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ConsultResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: consults to choose best option
+      tags:
+      - consult
+  /v1/api/score-ratings:
+    post:
+      consumes:
+      - application/json
+      description: bulk create the score rating
+      parameters:
+      - description: score rating request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.ScoreRatingRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BulkCreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: bulk create the score rating
+      tags:
+      - score-ratings
+    put:
+      consumes:
+      - application/json
+      description: updates the score rating
+      parameters:
+      - description: score rating request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.ScoreRatingRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UpdateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: updates the score rating
+      tags:
+      - score-ratings
+  /v1/api/score-ratings/:id:
+    delete:
+      consumes:
+      - application/json
+      description: deletes the score rating
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.DeletedResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: deletes the score rating
+      tags:
+      - score-ratings
+  /v1/api/score-ratings/:user_id:
+    get:
+      consumes:
+      - application/json
+      description: gets the score rating
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ScoreRatingResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: gets the score rating
+      tags:
+      - score-ratings
+  /v1/api/standards:
+    post:
+      consumes:
+      - application/json
+      description: creates the standard attribute
+      parameters:
+      - description: standard request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.StandardRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StandardResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: creates the standard attribute
+      tags:
+      - standards
+  /v1/api/standards/:id:
+    delete:
+      consumes:
+      - application/json
+      description: deletes the standard attribute
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.DeletedResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: deletes the standard attribute
+      tags:
+      - standards
+  /v1/api/standards/:user_id:
+    get:
+      consumes:
+      - application/json
+      description: gets the standard attribute
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.StandardResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: gets the standard attribute
+      tags:
+      - standards
+  /v1/api/users:
+    post:
+      consumes:
+      - application/json
+      description: creates the user account
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorSystem'
+      summary: creates the user account
+      tags:
+      - users
+swagger: "2.0"
